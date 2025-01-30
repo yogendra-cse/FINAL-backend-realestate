@@ -11,7 +11,17 @@ const port = 3000;
 const app = express();
 
 app.use(cors({
-    origin: "http://localhost:5174",
+    origin: function (origin, callback) {
+        const allowedOrigins = [
+            "https://final-frontend-real-estate.vercel.app",
+            "http://localhost:5174"
+        ];
+        if (allowedOrigins.includes(origin) || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
 }));
