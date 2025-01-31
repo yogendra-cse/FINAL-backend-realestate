@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const shouldBeLoggedIn = async (req, res) => {
     console.log(req.userId);
     
-    console.log("Cookies received:", req.cookies); // Debugging line
+    console.log("Cookies received:", req.cookies); 
 
     const token = req.cookies.token;
     

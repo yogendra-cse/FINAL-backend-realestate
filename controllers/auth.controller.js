@@ -90,7 +90,6 @@ const login = async (req, res)=>{
     const {username, password} = req.body;
 
     try {
-        // Check if the user exists
         const userData = await user.findOne({ username });
 
         if (!userData) {
@@ -99,7 +98,6 @@ const login = async (req, res)=>{
             });
         }
 
-        // Check if the password is valid
         const isPasswordValid = await bcrypt.compare(password, userData.password);
         if (!isPasswordValid) {
             return res.status(401).json({
@@ -107,10 +105,8 @@ const login = async (req, res)=>{
             });
         }
 
-        // the session will active for one week
         const session = 1000 * 60 * 60 * 24 * 7;
 
-        // it for security purpose
         const token = jwt.sign(
             { id: userData.id,
                 isAdmin:true
